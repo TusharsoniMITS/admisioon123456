@@ -1,0 +1,32 @@
+<%- include('../header.ejs') %>
+<br><br><br><br>
+<h1 class="mt-5"><center>Your Courses Display</center></h1>
+<% if(msg.length>0) { %>
+    <div class="alert alert-success"><center><%= msg %></center></div>
+<% } %>
+<table class="table text-center">
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>status</th>
+        <th>Action</th>
+    </tr>
+    <% d.forEach((iteam)=>{ %>
+        <tr>
+            <td><%= iteam._id %></td>
+            <td><%= iteam.name %></td>
+            <td><%= iteam.email %></td>
+            <td><%= iteam.mobile %></td>
+            <td class="table-white"><%= iteam.status %></td>
+        <td>
+            <a href="/course_view/<%= iteam._id %>" class="btn btn-info">View</a>
+            <a href="/course_edit/<%= iteam._id %>" class="btn btn-info">Edit</a>
+            <a href="/course_delete/<%= iteam._id %>" class="btn btn-danger">Delete</a><a href=""></a>
+        </td>
+        </tr>
+    <% }) %>
+    
+</table>
+<%- include('../footer.ejs') %>

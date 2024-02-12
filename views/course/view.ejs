@@ -1,0 +1,26 @@
+<%- include('../header.ejs') %>
+<br><br><br><br>
+<h1 class="mt-5"><center>Your Courses Views</center></h1>
+<table class="table">
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Course</th>
+        <th>phone No</th>
+        <th>Date</th>
+        <th>D.O.B</th>
+    </tr>
+    <tbody class="table-success">
+        <tr>
+            <td><%= d._id %></td>
+            <td><%= d.name %></td>
+            <td><%= d.email %></td>
+            <td><%= d.course %></td>
+            <td><%= d.mobile %></td>
+            <td><%= d.createdAt.toLocaleDateString() %></td>
+            <td><%= d.dob %></td>
+        </tr>  
+    </tbody>
+</table>
+<%- include('../footer.ejs') %>

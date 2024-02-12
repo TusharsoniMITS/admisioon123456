@@ -1,0 +1,12 @@
+@media(max-width:768px)
+{
+    .image{
+        display: block;
+        display: none;
+    }
+
+    .a{
+        margin-right: 100px;
+    }
+    
+}
