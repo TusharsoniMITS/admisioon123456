@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Login</title>
+    <title>forget</title>
 
     <!-- CSS Link -->
     <link rel="stylesheet" href="./style.css">
@@ -31,48 +31,35 @@
 
                 <!-- Column-2 -->
                 <div class="col-lg-6 bglogin p-4">
-                    <form action="vlogin" method="post">
+                    <form action="/forget" method="post">
                         <!-- logo -->
                         <center>
                             <img class="mb-4 rounded-circle" src="./Images/logo.jpeg" alt="logo" width="20%" height="20%">
                         </center>
 
                         <!-- Heading (Login) -->
-                        <h1 class="mb-5 text-center">Login</h1>
-                        <% if(msg.length>0) { %>
-                            <div class="alert alert-success"><%= msg %></div>
+                        <h1 class="mb-5 text-center">Forget password</h1>
+                        <% if(message.length>0) { %>
+                            <div class="alert alert-success"><%= message %></div>
                         <% } %>
                         <% if(error.length>0) { %>
                             <div class="alert alert-danger"><%= error %></div>
                         <% } %>
                         <!-- Email -->
                         <div class="row mb-3">
-                            <div class="col-lg-2 text-center bg-secondary rounded text-light fw-light my-auto p-2">Email</div>
+                            <div class="col-lg-2 text-center bg-secondary rounded text-light fw-light my-auto p-2">Enter Email</div>
                             <div class="col-lg-10">
                                 <input class="form-control" type="email" name="e" placeholder="name@example.com" required>
                             </div>
                         </div>
-
-                        <!-- Password -->
-                        <div class="row mb-5">
-                            <div class="col-lg-2 text-center bg-secondary rounded text-light fw-light my-auto p-2">Password</div>
-                            <div class="col-lg-10">
-                                <input class="form-control" type="password" name="p" required>
-                            </div>
-                        </div>
-
                         <!-- Button (Login) -->
                         <center>
-                            <button type="submit" class="btn btn-primary mb-5 btn-lg">Login</button>
+                            <button type="submit" class="btn btn-primary mb-5 btn-lg">Forget</button>
                         </center>
                         <!-- forget password-->
-                        <p class="text-uppercase fw-light "><a href="./forget">Forget password</a></p>
-
-                        
-                        <!-- Register Now -->
                         <center>
-                            <p class="text-uppercase fw-light ">Don't have an account? &nbsp;<a href="./register">Register Now</a></p>
-                        </center>                            
+                            <p class="text-uppercase fw-light ">Back To <a href="/">Login</a></p>
+                        </center>                          
                     </form>
                 </div>
                 <!-- End Column-2 -->

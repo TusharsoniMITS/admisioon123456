@@ -3,6 +3,9 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cloudinary = require('cloudinary').v2;
 const CourseModel = require("../model/Course")
+const randomstring = require("randomstring")
+const nodemailer = require('nodemailer')
+
 
 
 cloudinary.config({
@@ -241,6 +244,87 @@ class FrontController {
                 req.flash("error", "all fields are required");
                 res.redirect("/profile");
             }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    static forget = async (req, res) => {
+        try {
+            res.render('forget', { message: req.flash('success'), error: req.flash('error') });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    static forgetverify = async (req, res) => {
+        try {
+            const { e } = req.body
+            const userdata = await UserModel.findOne({ email:e })
+            if (userdata) {
+                const randomString = randomstring.generate();
+                await UserModel.updateOne(
+                    { email: e },
+                    { $set: { token: randomString} }
+                )
+                this.sendEmail(userdata.name, userdata.email, randomString)
+                req.flash('success', 'please check your mail to reset your password')
+                res.redirect("/forget")
+            } else {
+                req.flash('error', 'you not register')
+                res.redirect("/forget")
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    static sendEmail = async (name, email, token) => {
+        // console.log(name,email,status,comment)
+        // connenct with the smtp server
+
+        let transporter = await nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+
+            auth: {
+                user: "Tusharsonimits@gmail.com",
+                pass: "dctbiwtqmfwcvnzh",
+            },
+        });
+        let info = await transporter.sendMail({
+            from: "test@gmail.com", // sender address
+            to: email, // list of receivers
+            subject: "Reset Password", // Subject line
+            text: "heelo", // plain text body
+            html:
+                "<p>Hii " +
+                name +
+                ',Please click here to <a href="http://localhost:13000/reset-password?token=' +
+                token +
+                '"> Reset</a>Your Password.',
+        });
+    };
+    static reset_Password = async (req, res) => {
+        try {
+            const token = req.query.token;
+            const tokenData = await UserModel.findOne({ token: token });
+            if (tokenData) {
+                res.render('reset-password', { user_id: tokenData._id });
+            } else {
+                res.render('error 404');
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    static reset_Password1 = async (req, res) => {
+        try {
+            const { p, user_id } = req.body;
+            const newHashPassword = await bcrypt.hash(p, 10);
+            await UserModel.findByIdAndUpdate(user_id, {
+                password: newHashPassword,
+                token: "",
+            });
+            req.flash('success', 'Reset Password Updated successfully');
+            res.redirect('/');
         } catch (error) {
             console.log(error);
         }

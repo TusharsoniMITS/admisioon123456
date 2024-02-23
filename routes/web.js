@@ -9,7 +9,11 @@ const AdminController = require('../controller/AdminController')
 // router.get('/', (req, res) => {
 //     res.send('Hello World!')
 //   })
-router.get('/',FrontController.login)//req
+
+const authRoles = require('../middleware/adminRole')
+const isLogin = require('../middleware/isLogin')
+
+router.get('/',isLogin,FrontController.login)//req
 router.get('/register',FrontController.register)//req
 router.get('/home',checkUserAuth,FrontController.home)//req
 router.get('/dashboard',checkUserAuth,FrontController.dashboard)//req
@@ -24,10 +28,24 @@ router.get("/profile",checkUserAuth,FrontController.profile)
 router.post("/updateprofile",checkUserAuth,FrontController.updateprofile)
 router.post("/changepassword",checkUserAuth,FrontController.changepassword)
 
+// // forget password
+router.get("/forget",FrontController.forget)
+router.post('/forget',FrontController.forgetverify)
+
+// // router.get("/forgetpassword",FrontController.forget)
+// router.post('/forget',FrontController.forgetverify)
+router.get('/reset-password',FrontController.reset_Password)
+
+// // router.get('/reset-password',FrontController.reset_Password)
+router.post('/reset_Password1',FrontController.reset_Password1)
+
+
+
 
 //admin controller
-router.get("/admin/dashboard",checkUserAuth,AdminController.dashboard)
+router.get("/admin/dashboard",checkUserAuth,authRoles('admin'),AdminController.dashboard)
 router.post("/admin/update_status/:id",checkUserAuth,AdminController.update_status)
+
 
 
 
