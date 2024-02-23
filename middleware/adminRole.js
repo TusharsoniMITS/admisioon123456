@@ -1,8 +1,8 @@
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
-const authRoles = (roles) => {
+const authRoles = (role) => {
     return (req,res,next) =>{
-        if(!roles.includes(req.userdata.roles)){
+        if(!role.includes(req.userdata.role)){
             req.flash('error','Unauthorised user please login')
             res.redirect('/')
         }

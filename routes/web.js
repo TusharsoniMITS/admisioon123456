@@ -11,7 +11,7 @@ const AdminController = require('../controller/AdminController')
 //   })
 
 const authRoles = require('../middleware/adminRole')
-const isLogin = require('../middleware/isLogin')
+const isLogin = require('../middleware/isLogine')
 
 router.get('/',isLogin,FrontController.login)//req
 router.get('/register',FrontController.register)//req
@@ -29,7 +29,7 @@ router.post("/updateprofile",checkUserAuth,FrontController.updateprofile)
 router.post("/changepassword",checkUserAuth,FrontController.changepassword)
 
 // // forget password
-router.get("/forget",FrontController.forget)
+router.get('/forget',FrontController.forget)
 router.post('/forget',FrontController.forgetverify)
 
 // // router.get("/forgetpassword",FrontController.forget)
